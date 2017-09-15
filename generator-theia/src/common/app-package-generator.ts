@@ -29,7 +29,7 @@ export class AppPackageGenerator extends AbstractGenerator {
         const devDependencies = this.isWeb() ? {
             "webpack-dev-server": "^2.5.0"
         } : {
-                "electron": "^1.6.11",
+                "electron-builder": "^19.28.4",
                 "electron-rebuild": "^1.5.11"
             };
         return {
