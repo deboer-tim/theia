@@ -13,6 +13,7 @@ import { WorkspaceServer, workspacePath } from '../common';
 import { WorkspaceFrontendContribution } from "./workspace-frontend-contribution";
 import { WorkspaceService } from './workspace-service';
 import { WorkspaceCommandContribution, FileMenuContribution } from './workspace-commands';
+import { WorkspaceStorageService } from './workspace-storage-service';
 
 export default new ContainerModule(bind => {
     bind(WorkspaceService).toSelf().inSingletonScope();
@@ -34,4 +35,6 @@ export default new ContainerModule(bind => {
     );
     bind(CommandContribution).to(WorkspaceCommandContribution).inSingletonScope();
     bind(MenuContribution).to(FileMenuContribution).inSingletonScope();
+
+    bind(WorkspaceStorageService).toSelf().inSingletonScope();
 });

@@ -8,7 +8,7 @@
 import { ContainerModule } from 'inversify';
 import { MenuContribution } from '@theia/core/lib/common';
 import { FrontendApplicationContribution } from "@theia/core/lib/browser";
-import { FileNavigatorWidget, ID } from "./navigator-widget";
+import { FileNavigatorWidget, FILE_NAVIGATOR_ID } from "./navigator-widget";
 import { NavigatorMenuContribution } from './navigator-menu';
 import { FileNavigatorContribution } from "./navigator-contribution";
 import { createFileNavigatorWidget } from "./navigator-container";
@@ -18,5 +18,5 @@ export default new ContainerModule(bind => {
     bind(MenuContribution).to(NavigatorMenuContribution).inSingletonScope();
     bind(FileNavigatorWidget).toDynamicValue(ctx =>
         createFileNavigatorWidget(ctx.container)
-    ).inSingletonScope().whenTargetNamed(ID);
+    ).inSingletonScope().whenTargetNamed(FILE_NAVIGATOR_ID);
 });

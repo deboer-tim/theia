@@ -1,18 +1,18 @@
-import "webdriverio"
-import { assert } from "chai"
-import { MainPage } from "./pages/main-page"
+import "webdriverio";
+import { assert } from "chai";
+import { MainPage } from "./pages/main-page";
 
 describe('theia main elements loading', () => {
-    let url = '/';
+    const url = '/';
     let mainPage: MainPage;
 
     before(() => {
         browser.url(url);
-        if (browser.getTitle() == 'localhost') {
+        if (browser.getTitle() === 'localhost') {
             browser.waitUntil(function () {
-            console.log('browser not loaded yet, trying again ');
-            return browser.getTitle() == '';
-            }, 300000), 5000;        
+                console.log('browser not loaded yet, trying again ');
+                return browser.getTitle() === '';
+            }, 300000);
         }
         mainPage = new MainPage(browser);
 
@@ -27,15 +27,15 @@ describe('theia main elements loading', () => {
         mainPage.waitForLoadingPanels();
 
         // Panel is closed
-        assert.isFalse(mainPage.isFileNavigatorOpen());
+        assert.isTrue(mainPage.isFileNavigatorOpen());
 
         // Panel is open
         mainPage.clickFilesSideTab();
-        assert.isTrue(mainPage.isFileNavigatorOpen());
+        assert.isFalse(mainPage.isFileNavigatorOpen());
 
         // Panel is closed
         mainPage.clickFilesSideTab();
-        assert.isFalse(mainPage.isFileNavigatorOpen());
+        assert.isTrue(mainPage.isFileNavigatorOpen());
     });
 
     it('menu shows up correctly', () => {

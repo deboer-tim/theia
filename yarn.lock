@@ -959,8 +959,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000730"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000730.tgz#c9e1919a9f586c85d79265e7a84261b8421f92bd"
+  version "1.0.30000733"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000733.tgz#3a625bc41c7a9f99d59d64552857dd1af0edd9d4"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1084,8 +1084,8 @@ circular-dependency-plugin@^2.0.0:
   resolved "https://registry.yarnpkg.com/circular-dependency-plugin/-/circular-dependency-plugin-2.0.0.tgz#c10796c83390488a9bcdd42f032d6e64e984f660"
 
 clap@^1.0.9:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/clap/-/clap-1.2.0.tgz#59c90fe3e137104746ff19469a27a634ff68c857"
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clap/-/clap-1.2.1.tgz#254596499f2ac5df14c66f114dcc1414ff9233d0"
   dependencies:
     chalk "^1.1.3"
 
@@ -1885,9 +1885,9 @@ deepmerge@~1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-1.3.2.tgz#1663691629d4dbfe364fa12a2a4f0aa86aa3a050"
 
-default-gateway@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/default-gateway/-/default-gateway-2.0.2.tgz#e365db05c50a4643cc1990c6178228c540a0b910"
+default-gateway@^2.2.2:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/default-gateway/-/default-gateway-2.5.0.tgz#78e24dbd2e1df7490c2b8050515b8e816bfa7da5"
   dependencies:
     execa "^0.7.0"
     ip-regex "^2.1.0"
@@ -2229,9 +2229,9 @@ escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
 
-escape-string-applescript@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/escape-string-applescript/-/escape-string-applescript-1.0.0.tgz#6f1c2294245d82c63bc03338dc19a94aa8428892"
+escape-string-applescript@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/escape-string-applescript/-/escape-string-applescript-2.0.0.tgz#760bca838668e408fe5ee52ce42caf7cb46c5273"
 
 escape-string-regexp@1.0.5, escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -2518,14 +2518,14 @@ filter-obj@^1.1.0:
   resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-1.1.0.tgz#9b311112bc6c6127a16e016c6c5d7f19e0805c5b"
 
 finalhandler@~1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.4.tgz#18574f2e7c4b98b8ae3b230c21f201f31bdb3fb7"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.5.tgz#a701303d257a1bc82fea547a33e5ae89531723df"
   dependencies:
     debug "2.6.8"
     encodeurl "~1.0.1"
     escape-html "~1.0.3"
     on-finished "~2.3.0"
-    parseurl "~1.3.1"
+    parseurl "~1.3.2"
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
@@ -3543,11 +3543,11 @@ insight@^0.8.4:
     uuid "^3.0.0"
 
 internal-ip@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-2.0.2.tgz#bed2b35491e8b42aee087de7614e870908ee80f2"
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-2.0.3.tgz#ed3cf9b671ac7ff23037bfacad42eb439cd9546c"
   dependencies:
-    default-gateway "^2.0.2"
-    ipaddr.js "^1.5.1"
+    default-gateway "^2.2.2"
+    ipaddr.js "^1.5.2"
 
 interpret@^1.0.0:
   version "1.0.4"
@@ -3579,7 +3579,7 @@ ipaddr.js@1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.4.0.tgz#296aca878a821816e5b85d0a285a99bcff4582f0"
 
-ipaddr.js@^1.5.1:
+ipaddr.js@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.5.2.tgz#d4b505bde9946987ccf0fc58d9010ff9607e3fa0"
 
@@ -5315,7 +5315,7 @@ parse-passwd@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/parse-passwd/-/parse-passwd-1.0.0.tgz#6d5b934a456993b23d37f40a382d6f1666a8e5c6"
 
-parseurl@~1.3.1:
+parseurl@~1.3.1, parseurl@~1.3.2:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.2.tgz#fc289d4ed8993119460c156253262cdc8de65bf3"
 
@@ -5470,8 +5470,8 @@ pinkie@^2.0.0:
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
 pino@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-4.7.1.tgz#d8208de925065f49c9d4a72f54509a167fe18018"
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-4.7.2.tgz#56e8e712637669095f0a61b27a15649d62dec8cd"
   dependencies:
     chalk "^2.0.1"
     fast-json-parse "^1.0.0"
@@ -7182,16 +7182,15 @@ tough-cookie@^2.0.0, tough-cookie@~2.3.0:
     punycode "^1.4.1"
 
 trash@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/trash/-/trash-4.0.1.tgz#b3ce5a4d862b1c655bef818ae7e084efce6e4c2d"
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/trash/-/trash-4.1.0.tgz#edddcf2c26236d4942e8b27c80d1bd746b7acc77"
   dependencies:
-    escape-string-applescript "^1.0.0"
+    escape-string-applescript "^2.0.0"
     fs-extra "^0.30.0"
     globby "^6.0.0"
-    path-exists "^3.0.0"
-    pify "^2.3.0"
+    pify "^3.0.0"
     run-applescript "^3.0.0"
-    uuid "^2.0.1"
+    uuid "^3.1.0"
     xdg-trashdir "^2.0.0"
 
 tree-kill@^1.1.0:

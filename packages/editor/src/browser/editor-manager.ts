@@ -12,6 +12,8 @@ import { OpenHandler, FrontendApplication } from "@theia/core/lib/browser";
 import { EditorWidget } from "./editor-widget";
 import { EditorRegistry } from "./editor-registry";
 import { TextEditorProvider, Range, Position } from "./editor";
+import { StorageService } from '@theia/core/lib/browser/storage-service';
+import { WorkspaceStorageService } from '@theia/workspace/lib/browser/workspace-storage-service';
 
 export const EditorManager = Symbol("EditorManager");
 
@@ -52,6 +54,11 @@ export interface EditorInput {
     selection?: RecursivePartial<Range>;
 }
 
+namespace editorStorage {
+    export const openedEditors = 'editorStorage.openedEditors';
+    export const activeEditor = 'editorStorage.activeEditor';
+}
+
 @injectable()
 export class EditorManagerImpl implements EditorManager {
 
@@ -65,10 +72,37 @@ export class EditorManagerImpl implements EditorManager {
         @inject(EditorRegistry) protected readonly editorRegistry: EditorRegistry,
         @inject(TextEditorProvider) protected readonly editorProvider: TextEditorProvider,
         @inject(SelectionService) protected readonly selectionService: SelectionService,
-        @inject(FrontendApplication) protected readonly app: FrontendApplication
+        @inject(FrontendApplication) protected readonly app: FrontendApplication,
+        @inject(WorkspaceStorageService) protected readonly storageService: StorageService
     ) {
         this.currentObserver = new EditorManagerImpl.Observer('current', app);
         this.activeObserver = new EditorManagerImpl.Observer('active', app);
+
+        this.onActiveEditorChanged(e => {
+            this.storageService.setData(editorStorage.activeEditor, e ? e.editor.uri.toString() : undefined);
+        });
+        this.restorePreviousState();
+    }
+
+    protected restorePreviousState(): void {
+        // we cannot do this during injection, as it will trigger cycles
+        setTimeout(async () => {
+            const openedEditors: string[] = await this.storageService.getData(editorStorage.openedEditors, []);
+            const activeEditor = await this.storageService.getData(editorStorage.activeEditor, undefined);
+            const promises: Promise<EditorWidget>[] = [];
+            for (const uri of openedEditors) {
+                promises.push(this.open(new URI(uri)));
+            }
+            if (activeEditor) {
+                Promise.all(promises).then(editors => {
+                    for (const editor of editors) {
+                        if (editor.editor.uri.toString() === activeEditor) {
+                            this.app.shell.activateMain(editor.id);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     get editors() {
@@ -113,16 +147,35 @@ export class EditorManagerImpl implements EditorManager {
             return editor;
         }
         return this.editorProvider(uri).then(textEditor => {
-            const editor = new EditorWidget(textEditor, this.selectionService);
-            editor.title.closable = true;
-            editor.title.label = uri.path.base;
-            this.editorRegistry.addEditor(uri, editor);
-            editor.disposed.connect(() =>
+            const newEditor = new EditorWidget(textEditor, this.selectionService);
+            newEditor.title.closable = true;
+            newEditor.title.label = uri.path.base;
+            this.editorRegistry.addEditor(uri, newEditor);
+            newEditor.disposed.connect(() => {
+
                 this.editorRegistry.removeEditor(uri)
-            );
-            this.app.shell.addToMainArea(editor);
-            return editor;
+                this.updateOpenEditors(uris => {
+                    const index = uris.indexOf(uri.toString());
+                    if (index > -1) {
+                        uris.splice(index);
+                    }
+                    return uris;
+                });
+            });
+            this.updateOpenEditors(uris => {
+                if (uris.indexOf(uri.toString()) === -1) {
+                    uris.push(uri.toString());
+                }
+                return uris;
+            });
+            this.app.shell.addToMainArea(newEditor);
+            return newEditor;
         });
+    }
+
+    protected async updateOpenEditors(update: (uris: string[]) => string[]): Promise<void> {
+        const uris: string[] = await this.storageService.getData(editorStorage.openedEditors, []);
+        return this.storageService.setData(editorStorage.openedEditors, update(uris));
     }
 
     protected revealIfVisible(editor: EditorWidget, input?: EditorInput): void {

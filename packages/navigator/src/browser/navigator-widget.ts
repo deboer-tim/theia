@@ -11,14 +11,19 @@ import URI from "@theia/core/lib/common/uri";
 import { ContextMenuRenderer, TreeProps } from "@theia/core/lib/browser";
 import { FileTreeWidget } from "@theia/filesystem/lib/browser";
 import { FileNavigatorModel } from "./navigator-model";
+import { StorageService } from '@theia/core/lib/browser/storage-service';
 
 export const FILE_STAT_NODE_CLASS = 'theia-FileStatNode';
 export const DIR_NODE_CLASS = 'theia-DirNode';
 export const FILE_STAT_ICON_CLASS = 'theia-FileStatIcon';
 
-export const ID = 'files';
+export const FILE_NAVIGATOR_ID = 'files';
 export const LABEL = 'Files';
 export const CLASS = 'theia-Files';
+
+export namespace navigatorStorage {
+    export const active = 'navigator.active';
+}
 
 @injectable()
 export class FileNavigatorWidget extends FileTreeWidget {
@@ -26,12 +31,23 @@ export class FileNavigatorWidget extends FileTreeWidget {
     constructor(
         @inject(TreeProps) readonly props: TreeProps,
         @inject(FileNavigatorModel) readonly model: FileNavigatorModel,
-        @inject(ContextMenuRenderer) contextMenuRenderer: ContextMenuRenderer
+        @inject(ContextMenuRenderer) contextMenuRenderer: ContextMenuRenderer,
+        @inject(StorageService) protected storageService: StorageService
     ) {
         super(props, model, contextMenuRenderer);
-        this.id = ID;
+        this.id = FILE_NAVIGATOR_ID;
         this.title.label = LABEL;
         this.addClass(CLASS);
+    }
+
+    protected onAfterHide(msg: Message): void {
+        super.onAfterHide(msg);
+        this.storageService.setData(navigatorStorage.active, false);
+    }
+
+    protected onAfterShow(msg: Message): void {
+        super.onAfterShow(msg);
+        this.storageService.setData(navigatorStorage.active, true);
     }
 
     protected onAfterAttach(msg: Message): void {

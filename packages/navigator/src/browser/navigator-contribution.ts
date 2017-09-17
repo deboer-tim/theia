@@ -11,7 +11,8 @@ import { FrontendApplicationContribution, FrontendApplication } from "@theia/cor
 import { FileSystem } from "@theia/filesystem/lib/common";
 import { DirNode } from "@theia/filesystem/lib/browser";
 import { WorkspaceService } from "@theia/workspace/lib/browser";
-import { FileNavigatorWidget, ID } from "./navigator-widget";
+import { FileNavigatorWidget, FILE_NAVIGATOR_ID, navigatorStorage } from './navigator-widget';
+import { StorageService } from '@theia/core/lib/browser/storage-service';
 
 @injectable()
 export class FileNavigatorContribution implements FrontendApplicationContribution {
@@ -22,7 +23,8 @@ export class FileNavigatorContribution implements FrontendApplicationContributio
         @inject(FileSystem) protected readonly fileSystem: FileSystem,
         @inject(WorkspaceService) protected readonly workspaceService: WorkspaceService,
         @inject(SelectionService) protected readonly selectionService: SelectionService,
-        @inject(FileNavigatorWidget) @named(ID) protected readonly fileNavigator: FileNavigatorWidget
+        @inject(FileNavigatorWidget) @named(FILE_NAVIGATOR_ID) protected readonly fileNavigator: FileNavigatorWidget,
+        @inject(StorageService) protected storageService: StorageService
     ) {
         this.fileNavigator.model.onSelectionChanged(selection =>
             this.selectionService.selection = selection
@@ -34,6 +36,11 @@ export class FileNavigatorContribution implements FrontendApplicationContributio
 
     onStart(app: FrontendApplication): void {
         app.shell.addToLeftArea(this.fileNavigator);
+        this.storageService.getData(navigatorStorage.active, true).then(isActive => {
+            if (isActive) {
+                app.shell.activateLeft(FILE_NAVIGATOR_ID);
+            }
+        });
     }
 
 }

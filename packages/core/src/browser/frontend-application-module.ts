@@ -24,6 +24,7 @@ import { HumaneMessageClient } from './humane-message-client';
 import { WebSocketConnectionProvider } from './messaging';
 import { CommonFrontendContribution } from './common-frontend-contribution';
 import { QuickOpenService, QuickCommandService, QuickCommandFrontendContribution } from './quick-open';
+import { LocalStorageService, StorageService } from './storage-service';
 
 import '../../src/browser/style/index.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -75,4 +76,6 @@ export const frontendApplicationModule = new ContainerModule((bind, unbind, isBo
     [CommandContribution, KeybindingContribution].forEach(serviceIdentifier =>
         bind(serviceIdentifier).toDynamicValue(ctx => ctx.container.get(QuickCommandFrontendContribution)).inSingletonScope()
     );
+
+    bind(StorageService).to(LocalStorageService).inSingletonScope();
 });
